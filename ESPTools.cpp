@@ -42,8 +42,12 @@ bool mqtt_check(PubSubClient &mqttclient, uint16_t mqttReconnectInterval, const 
 void startWifi(const char* ssid, const char* password, const char* device_name)
 {
   digitalWrite ( LED_BUILTIN, LOW );
+  WiFi.mode(WIFI_STA);
+  WiFi.softAPdisconnect(true);
   WiFi.begin ( ssid, password );
-
+  WiFi.softAPdisconnect(true);
+  WiFi.mode(WIFI_STA);
+  WiFi.hostname(device_name);
   // Wait for connection
   while ( WiFi.status() != WL_CONNECTED ) {
     delay(500);
